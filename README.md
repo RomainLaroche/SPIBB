@@ -1,6 +1,6 @@
 ## Implementation of Safe Policy Improvement with Baseline Bootstrapping
 
-This project can be used to reproduce the finite MDPs experiments presented in the ICML2019 paper: Safe Policy Improvement with Baseline Bootstrapping, by Romain Laroche, Paul Trichelair, and Rémi Tachet des Combes. For the DQN implementation, please refer to git repository at [this address](https://www.github.com).
+This project can be used to reproduce the finite MDPs experiments presented in the ICML2019 paper: Safe Policy Improvement with Baseline Bootstrapping, by Romain Laroche, Paul Trichelair, and Rémi Tachet des Combes. For the DQN implementation, please refer to git repository at [this address](https://github.com/rems75/SPIBB-DQN).
 
 
 ## Prerequisites
