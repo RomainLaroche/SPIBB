@@ -1,8 +1,7 @@
 ## Implementation of Safe Policy Improvement with Baseline Bootstrapping
 
-This project can be used to reproduce the experiments presented in the submitted paper.
+This project can be used to reproduce the finite MDPs experiments presented in the ICML2019 paper: Safe Policy Improvement with Baseline Bootstrapping, by Romain Laroche, Paul Trichelair, and Rémi Tachet des Combes. For the DQN implementation, please refer to git repository at [this address](https://www.github.com).
 
-For a detailed description of this see the paper.
 
 ## Prerequisites
 
@@ -43,3 +42,16 @@ We DO NOT include the following:
 ## License
 
 This project is BSD-licensed.
+
+## Reference
+
+Please use the following bibtex entry if you use this code:
+
+```
+@inproceedings{Laroche2019,
+    title={Safe Policy Improvement with Baseline Bootstrapping},
+    author={Laroche, Romain and Trichelair, Paul and Tachet des Combes, R\'emi},
+    booktitle={Proceedings of the 36th International Conference on Machine Learning (ICML)},
+    year={2019}
+}
+```
