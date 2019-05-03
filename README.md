@@ -36,7 +36,7 @@ We include the following:
 We DO NOT include the following:
 - The hyper-parameter search (Appendix C.2): it should be easy to re-implement.
 - The figure generator: it has too many specificities to be made understandable for a user at the moment. Also, it is not hard to re-implement one's own visualization tools.
-- The multi-CPU implementation: its structure is too much dependent on the cluster tools: it would be useless for somebody from another lab and might divulge author affiliations.
+- The multi-CPU implementation: its structure is too much dependent on the cluster tools.
 
 
 ## License
