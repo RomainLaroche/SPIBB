@@ -1,8 +1,7 @@
-# authors: anonymized
+# authors: anonymous
 
 import numpy as np
 import time
-import mazeDiscrete
 
 
 # Sectect action based on the the action-state function with a softmax strategy
@@ -82,22 +81,20 @@ def compute_q_pib_est(gamma, nb_states, nb_actions, batch):
 	return np.nan_to_num(q_pib_est)
 
 
-
 # Generates a batch of trajectories
-def generate_batch(nb_trajectories, env, pi, max_steps=50):
+def generate_batch(nb_trajectories, env, pi, easter_egg=None, max_steps=50):
 	trajectories = []
 	for _ in np.arange(nb_trajectories):
 		nb_steps = 0
 		trajectorY = []
 		state = env.reset()
 		is_done = False
-		while nb_steps < max_steps and not(is_done):
+		while nb_steps < max_steps and not is_done:
 			action_choice = np.random.choice(pi.shape[1], p=pi[state])
-			state, reward, next_state, is_done = env.step(action_choice)
+			state, reward, next_state, is_done = env.step(action_choice, easter_egg)
 			trajectorY.append([action_choice, state, next_state, reward])
 			state = next_state
-			nb_steps +=1
+			nb_steps += 1
 		trajectories.append(trajectorY)
 	batch_traj = [val for sublist in trajectories for val in sublist]
-	return trajectories,batch_traj
-
+	return trajectories, batch_traj

@@ -79,12 +79,11 @@ while True:
 			# q_pib_est = spibb_utils.compute_q_pib_est(gamma, nb_states, nb_actions, trajectories)
 
 			# Computes the RL policy
-			rl = spibb.spibb(gamma, nb_states, nb_actions, pi_b, mask_0, model.transitions, reward_model, 'default', 0, None, None, None)
+			rl = spibb.spibb(gamma, nb_states, nb_actions, pi_b, mask_0, model.transitions, reward_model, 'default')
 			rl.fit()
 			# Evaluates the RL policy performance
 			perfrl = spibb.policy_evaluation_exact(rl.pi, r_reshaped, current_proba, gamma)[0][0]
 			print("perf RL: " + str(perfrl))
-
 
 			# Computes the Reward-adjusted MDP RL policy:
 			count_state_action = 0.00001 * np.ones((nb_states, nb_actions))
@@ -92,7 +91,7 @@ while True:
 			for [action, state, next_state, reward] in batch_traj:
 				count_state_action[state, action] += 1
 			ramdp_reward_model = reward_model - kappa/np.sqrt(count_state_action)
-			ramdp = spibb.spibb(gamma, nb_states, nb_actions, pi_b, mask_0, model.transitions, ramdp_reward_model, 'default', 0, None, None, None)
+			ramdp = spibb.spibb(gamma, nb_states, nb_actions, pi_b, mask_0, model.transitions, ramdp_reward_model, 'default')
 			ramdp.fit()
 			# Evaluates the RL policy performance
 			perf_RaMDP = spibb.policy_evaluation_exact(ramdp.pi, r_reshaped, current_proba, gamma)[0][0]
@@ -109,7 +108,7 @@ while True:
 				perf_RMDP_based_alorithm_safe = perf_RMDP_based_alorithm
 			else:
 				perf_RMDP_based_alorithm_safe = pi_b_perf
-			print("delta: "+str(delta_RobustMDP)+" ;perf RMDP_based_alorithm: " + str(perf_RMDP_based_alorithm)+" ;with_safety_test: "+str(perf_RMDP_based_alorithm_safe))
+			print("delta: "+str(delta_RobustMDP)+" ;perf RMDP_based_algorithm: " + str(perf_RMDP_based_alorithm)+" ;with_safety_test: "+str(perf_RMDP_based_alorithm_safe))
 
 			# Computes the HCPI doubly robust policy:
 			delta_HCPI = 0.9
@@ -127,14 +126,14 @@ while True:
 				## Policy-based SPIBB ##
 
 				# Computes the Pi_b_SPIBB policy:
-				pib_SPIBB = spibb.spibb(gamma, nb_states, nb_actions, pi_b, mask, model.transitions, reward_model, 'Pi_b_SPIBB', 0, None, None, None)
+				pib_SPIBB = spibb.spibb(gamma, nb_states, nb_actions, pi_b, mask, model.transitions, reward_model, 'Pi_b_SPIBB')
 				pib_SPIBB.fit()
 				# Evaluates the Pi_b_SPIBB performance:
 				perf_Pi_b_SPIBB = spibb.policy_evaluation_exact(pib_SPIBB.pi, r_reshaped, current_proba, gamma)[0][0]
 				print("perf Pi_b_SPIBB: " + str(perf_Pi_b_SPIBB))
 
 				# Computes the Pi_<b_SPIBB policy:
-				pi_leq_b_SPIBB = spibb.spibb(gamma, nb_states, nb_actions, pi_b, mask, model.transitions, reward_model, 'Pi_leq_b_SPIBB', 0, None, None, None)
+				pi_leq_b_SPIBB = spibb.spibb(gamma, nb_states, nb_actions, pi_b, mask, model.transitions, reward_model, 'Pi_leq_b_SPIBB')
 				pi_leq_b_SPIBB.fit()
 				# Evaluates the Pi_<b_SPIBB performance:
 				perf_Pi_leq_b_SPIBB = spibb.policy_evaluation_exact(pi_leq_b_SPIBB.pi, r_reshaped, current_proba, gamma)[0][0]
@@ -150,7 +149,7 @@ while True:
 	df = pd.DataFrame(results, columns=['seed','gamma','nb_states','nb_actions','nb_next_state_transition',
 		'nb_trajectories', 'softmax_target_perf_ratio', 'baseline_target_perf_ratio',
 		'baseline_perf', 'pi_rand_perf', 'pi_star_perf', 'perfrl', 'perf_RaMDP', 
-		'perf_RMDP_based_alorithm',	'perfHCPI_doubly_robust', 'perf_Pi_b_SPIBB',
+		'perf_RMDP_based_algorithm',	'perfHCPI_doubly_robust', 'perf_Pi_b_SPIBB',
 		'perf_Pi_leq_b_SPIBB', 'kappa',	'delta_RobustMDP', 'delta_HCPI', 'N_wedge'])
 
 	# Save it to an excel file
